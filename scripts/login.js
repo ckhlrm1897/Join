@@ -24,13 +24,14 @@ const labelHover = document.querySelector('.signin_btn_checkbox_img_wrapper');
 const dialogSignin = document.getElementById("dialog_signin");
 const toggleSignIn = document.querySelector('.btn_sign_up');
 const toggleLogIn = document.querySelector('#signin-btn-back');
-const toggleMemberLogin = document.querySelector('btn_member');
+const toggleMemberLogin = document.querySelector('.btn_member');
 const togglePrivacyCheck = document.getElementById('sign-up-label');
+const welcomeContent = document.querySelector(".welcome_content");
 let isPasswordVisible = false;
 
 // Initialization after document is loaded
 document.addEventListener('DOMContentLoaded', function () {
-  runFadeInOut();
+  fadeWelcome();
   setUserIsLoggedOut()
   validateSigninForm();
   setupLoginListeners();

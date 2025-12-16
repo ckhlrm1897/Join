@@ -121,6 +121,15 @@ function runFadeInOut() {
 }
 
 /**
+ * Runs a fade-in effect for elements with the "fade_out" class.
+ */
+function fadeWelcome() {
+  setTimeout(function () {
+    welcomeContent.classList.add("welcome_in");
+  }, 1000);
+}
+
+/**
  * Sets up event listeners for the login form.
  */
 function setupLoginListeners() {
@@ -211,9 +220,9 @@ function setupPrivacyCheckboxListener() {
  * Hover effect on an div box while effected only in the img inside
  * @type {HTMLElement}
  * */
-function setupHoverPrivacyCheckboxListener(){
+function setupHoverPrivacyCheckboxListener() {
   signupBtnHover.addEventListener('mouseover', () => {
-    labelHover.style.borderRadius = "50%"; 
+    labelHover.style.borderRadius = "50%";
     labelHover.style.background = "rgba(237, 242, 250, 1)";
   })
 
@@ -223,9 +232,11 @@ function setupHoverPrivacyCheckboxListener(){
   })
 }
 
-function memberLogin() {
-  toggleMemberLogin.addEventListener('click', () => {
-    console.log("ich hab auf member geklickt");
-    
-  })
-}
+toggleMemberLogin.addEventListener('click', () => {
+  // let welcomeContent = document.querySelector('.welcome_content');
+  welcomeContent.classList.remove('welcome_in');
+  welcomeContent.classList.add('welcome_out');
+  let loginLogo = document.querySelector('.login_logo');
+  loginLogo.classList.add('slide');
+  runFadeInOut();
+})
