@@ -6,6 +6,10 @@ body {
     overflow-x: hidden;
 }
 
+.test {
+    height: 123;
+}
+
 header {
     font-family: "Inter", sans-serif;
     font-size: 20px;
