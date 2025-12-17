@@ -5,8 +5,8 @@
  * @param {string} data.taskKey - The unique key or ID of the task.
  * @returns {string} - HTML string for the task detail view.
  */
-function taskDetailViewTemplate(data) {
-    return `    <div class="taskd_detail_header d_flex_center_row justify_between margin_0 width_100">
+function taskDetailViewTemplate(data, isCreator) {
+  return `    <div class="taskd_detail_header d_flex_center_row justify_between margin_0 width_100">
       <div class="margin_0 category_detail" id="task-category">User Story</div>
       <div class="close_detail_field  close_add_task margin_0" onclick="closeTaskOverlay()"></div>
     </div>
@@ -18,13 +18,17 @@ function taskDetailViewTemplate(data) {
       ${data.taskData.description}
     </div>
     <div class=" d_flex_center_row width_100 detail_head">
+      <p class="task_detail">Creator:</p>
+      <div class="width_100 detail_due_date">${renderCreator(data.taskData, isCreator)}</div>
+    </div>
+    <div class=" d_flex_center_row width_100 detail_head">
       <p class="task_detail">Due date:</p>
       <div class="width_100 detail_due_date">${data.taskData.dueDate}</div>
     </div>
     <div class="d_flex_center_row width_100 detail_head">
       <p class="task_detail">Priority:</p>
       <div class="d_flex_center_row width_100 margin_0 justify_start" id="priority"><p class="margin_0">${data.taskData.priority.charAt(0).toUpperCase()
-  + data.taskData.priority.slice(1)}</p><img class="margin_0" src="./assets/icons/prio_${data.taskData.priority}.svg" alt=""></img></div>
+    + data.taskData.priority.slice(1)}</p><img class="margin_0" src="./assets/icons/prio_${data.taskData.priority}.svg" alt=""></img></div>
     </div>
     <div class="d_flex_center_column width_100 align_none justify_start gap_8">
       <div class="margin_0">
@@ -54,7 +58,7 @@ function taskDetailViewTemplate(data) {
  * @returns {string} - HTML string for the task detail edit view.
  */
 function taskDetailEditTemplate(data) {
-      return ` 
+  return ` 
       <div class="taskd_detail_header d_flex_center_row justify_between margin_0 width_100">
       <div></div>
       <div class="close_detail_field  close_add_task margin_0" onclick="closeTaskOverlay()"></div>
@@ -172,3 +176,28 @@ function taskDetailEditTemplate(data) {
     </div>
      `
 }
+
+function renderCreator(data, isCreator) {
+  if (isCreator) {  
+    return `
+  <div class="creator_container d_flex_row gap_8 justify_between">
+    <div class="d_flex_row gap_8">
+      <img src="./assets/icons/member.svg" alt="member-svg">
+      <p>${data.creator}</p>
+    </div>
+    <div class="profil_icon">
+    </div>
+  </div>`
+  } else {
+    return `
+  <div class="creator_container d_flex_row gap_8 justify_between">
+    <div class="d_flex_row gap_8">
+      <img src="./assets/icons/extern.svg" alt="extern-svg">
+      <p>${data.creator}</p>
+    </div>
+   <a href="mailto:${data.Mail}"><div class="email_icon"> </div></a>
+  </div>`
+  }
+
+}
+

@@ -183,3 +183,33 @@ input{
     align-items: center;
     padding: 7px 0px 7px 8px;
 }
+
+.profil_icon {
+    background-image: url(../assets/icons/profil_default.svg);
+    width: 63px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.profil_icon:hover{
+    background-image: url(../assets/icons/profil_hover.svg);
+}
+
+.profil_icon:active{
+    background-image: url(../assets/icons/profil_click.svg);
+}
+
+.email_icon {
+    background-image: url(../assets/icons/email_default.svg);
+    width: 76px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.email_icon:hover{
+    background-image: url(../assets/icons/email_hover.svg);
+}
+
+.email_icon:active{
+    background-image: url(../assets/icons/email_click.svg);
+}

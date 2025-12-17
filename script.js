@@ -67,7 +67,6 @@ async function loadFromDatabase(path) {
   try {
     let response = await fetch(FIREBASE_URL + path + ".json");
     let responseToJson = await response.json();
-    console.log(responseToJson);
     
     return responseToJson
   } catch (error) {
@@ -269,4 +268,18 @@ function getUserInitials() {
   if (userInitials) {
     userInitials.innerText = firstInitial + lastInitial;
   }
+}
+
+async function getUsers() {
+   return await getUsersFromDatabase();
+}
+
+async function isCreatorUser(data) {
+  let creator = data.creator;
+  const users = await getUsers();
+  const userValues = Object.values(users);
+  for (let i = 0; i < userValues.length; i++) {
+    if (userValues[i].name === creator) return true;
+  }
+  return false;
 }

@@ -382,10 +382,11 @@ function handleTaskCardClick(cardElement) {
  * Renders the detailed view of a task in the overlay.
  * @param {Object} data - Task data object.
  */
-function renderTaskDetailView(data) {
+async function renderTaskDetailView(data) {    
+    const isCreator = await isCreatorUser(data.taskData)
     const taskDetail = document.getElementById('task-details');
     taskDetail.innerHTML = "";
-    taskDetail.innerHTML = taskDetailViewTemplate(data);
+    taskDetail.innerHTML = taskDetailViewTemplate(data, isCreator);
 
     const taskCategory = document.getElementById("task-category");
     if (data.taskCategory === "Technical Task") {
@@ -420,3 +421,4 @@ function renderContactsDetailView(data) {
         })
     }
 }
+
