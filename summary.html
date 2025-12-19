@@ -20,9 +20,11 @@
     onclick="toggleLogoutOverlay()">
     <div class="position_absolute small_logout_win d_flex_center" onclick="stopPropagation(event)">
       <div class="d_flex_center justify_around flex_column">
-        <a class="d_flex_center justify_start small_logout_link d_none small_logout_win_help" href="./templates/help.html">Help</a>
+        <a class="d_flex_center justify_start small_logout_link d_none small_logout_win_help"
+          href="./templates/help.html">Help</a>
         <a class="d_flex_center justify_start small_logout_link" href="./templates/legalNotice.html">Legal Notice</a>
-        <a class="d_flex_center justify_start small_logout_link" href="./templates/privacyPolicy.html">Privacy Policy</a>
+        <a class="d_flex_center justify_start small_logout_link" href="./templates/privacyPolicy.html">Privacy
+          Policy</a>
         <a class="d_flex_center justify_start small_logout_link" id="btn-log-out">Log Out</a>
       </div>
     </div>
@@ -91,7 +93,7 @@
         </div>
         <div class="d_flex_center summary_div">
           <div class="summary_overview d_flex_center_column justify_between">
-            <div class="summary_first_row d_flex_center justify_between width_100">
+            <div class="summary_first_row d_flex_center gap_24 width_100">
               <a href="./board.html">
                 <div class="summary_box inner_left d_flex_center margin_0" id="to-do">
                   <div class="box_item pencil"></div>
@@ -111,27 +113,40 @@
                 </div>
               </a>
             </div>
-            <a href="./board.html">
-              <div class="summary_box urgent d_flex_center_row">
-                <div class="d_flex_center width_100 justify_around summary_container">
-                  <div class="d_flex_center_row gap_18">
-                    <img class="urgency_summary_icon" src="./assets/icons/urgency_summary.svg" alt="urgency_summary" />
-                    <div class="d_flex_center_column">
-                      <div class="task_number" id="urgents"></div>
-                      <div class="task_name">
-                        <p>Urgent</p>
+            <div class="summary_second_row d_flex_center gap_24 width_100">
+              <a href="./board.html">
+                <div class="summary_box urgent d_flex_center_row">
+                  <div class="d_flex_center width_100 justify_between summary_container">
+                    <div class="d_flex_center_row gap_8">
+                      <img class="urgency_summary_icon" src="./assets/icons/urgency_summary.svg"
+                        alt="urgency_summary" />
+                      <div class="d_flex_center_column">
+                        <div class="task_number" id="urgents"></div>
+                        <div class="task_name">
+                          <p>Urgent</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <img class="vector_5_urgency" src="./assets/icons/urgency_vector.svg" alt="" />
-                  <div class="d_flex_center_column date">
-                    <p id="date">October 16, 2022</p>
-                    <p class="deadline">Upcoming Deadline</p>
+                    <img class="vector_5_urgency" src="./assets/icons/urgency_vector.svg" alt="" />
+                    <div class="d_flex_center_column date">
+                      <p id="date">October 16, 2022</p>
+                      <p class="deadline">Upcoming Deadline</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
-            <div class="summary_third_row d_flex_center justify_between width_100">
+              </a>
+              <a href="./board.html">
+                <div class="summary_box small_box inner_left d_flex_center margin_0">
+                  <div class="d_flex_center_column">
+                    <div class="task_number" id="email-requests">10</div>
+                    <div class="task_name">Email reqeuests
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <div class="summary_third_row d_flex_center gap_24 width_100">
               <a href="./board.html">
                 <div class="summary_box small_box inner_left d_flex_center margin_0" id="to_do">
                   <div class="d_flex_center_column margin_0">

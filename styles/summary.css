@@ -80,8 +80,9 @@ main {
 }
 
 .urgent {
-    width: 560px;
+    width: 364px;
     transform-origin: top left;
+    padding: 16px;
 }
 
 
@@ -141,7 +142,7 @@ p {
 
 #date {
     font-weight: 700;
-    font-size: 21px;
+    font-size: 20px;
 }
 
 .date {
@@ -176,4 +177,10 @@ p {
 
 .headline_vector_vertical {
     display: none;
+}
+
+#email-requests {
+  background: -webkit-linear-gradient(#8933FC, #29ABE2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
