@@ -8,9 +8,14 @@ export const listEl = document.getElementById("contacts-list");
 export const detailBox = document.getElementById("contact-detail");
 
 const FIREBASE_URL = "https://join-19b54-default-rtdb.europe-west1.firebasedatabase.app/";
-const DB_PATH = "contacts";
+const DB_CONTACTS = "contacts";
+const DB_USERS = "users";
 let contacts = [];
+let users = [];
 let lastSelectedItem = null;
+let taskProfil;
+let sortedContacts;
+
 
 /**
  * Returns initials from full name or '??' if not valid.
@@ -43,7 +48,16 @@ export function stringToColor(str) {
  * @returns {Promise<Array>} contacts
  */
 export async function fetchContacts() {
-  const data = await loadFromDatabase(DB_PATH);
+  const data = await loadFromDatabase(DB_CONTACTS);
+  return Object.entries(data || {}).map(([id, entry]) => ({ id, ...entry }));
+}
+
+/**
+ * Fetch all contacts from Firebase.
+ * @returns {Promise<Array>} contacts
+ */
+export async function fetchUsers() {
+  const data = await loadFromDatabase(DB_USERS);
   return Object.entries(data || {}).map(([id, entry]) => ({ id, ...entry }));
 }
 
@@ -53,7 +67,7 @@ export async function fetchContacts() {
  * @returns {Promise<{name:string}>}
  */
 export async function createContact(contact) {
-  return await postToDatabase(DB_PATH, contact);
+  return await postToDatabase(DB_CONTACTS, contact);
 }
 
 /**
@@ -62,7 +76,7 @@ export async function createContact(contact) {
  * @param {object} data
  */
 export async function updateContact(id, data) {
-  await updateOnDatabase(`${DB_PATH}/${id}`, data);
+  await updateOnDatabase(`${DB_CONTACTS}/${id}`, data);
 }
 
 /**
@@ -70,7 +84,7 @@ export async function updateContact(id, data) {
  * @param {string} id
  */
 export async function deleteContact(id) {
-  await deleteFromDatabase(`${DB_PATH}/${id}`);
+  await deleteFromDatabase(`${DB_CONTACTS}/${id}`);
   showToast("Contact successfully deleted");
 }
 
@@ -142,6 +156,7 @@ export function showToast(message) {
  */
 export async function renderContacts() {
   contacts = await fetchContacts();
+  users = await fetchUsers();
   listEl.innerHTML = "";
   const grouped = groupContacts();
   renderContactSections(grouped, listEl);
@@ -152,11 +167,18 @@ export async function renderContacts() {
  * @returns {object}
  */
 function groupContacts() {
-  return contacts.slice().sort((a, b) => a.name.localeCompare(b.name)).reduce((acc, c) => {
-    const L = c.name[0].toUpperCase();
-    (acc[L] ||= []).push(c);
-    return acc;
-  }, {});
+  sortedContacts = [...(contacts ?? []), ...(users ?? [])].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+  const groupedContacts = {};
+  for (const contact of sortedContacts) {
+    const firstLetter = contact.name[0].toUpperCase();
+    if (!groupedContacts[firstLetter]) {
+      groupedContacts[firstLetter] = [];
+    }
+    groupedContacts[firstLetter].push(contact);
+  }
+  return groupedContacts;
 }
 
 /**
@@ -174,6 +196,7 @@ function renderContactSections(grouped, parent) {
     });
     parent.appendChild(section);
   }
+  highlightTaskProfilUser();
 }
 
 /**
@@ -184,7 +207,7 @@ function renderContactSections(grouped, parent) {
 function createContactListItem(c) {
   const item = document.createElement("div");
   item.className = "contact-list-item";
-  item.dataset.id = c.id;
+  item.id = c.id;
   item.innerHTML = `
     <div class="contact_left">
       <div class="contact_circle">${getInitials(c.name)}</div>
@@ -267,4 +290,27 @@ export function getContactFormValues() {
     email: document.getElementById("contact-emailfield").value.trim(),
     phone: document.getElementById("contact-phonefield").value.trim()
   };
+}
+
+function checkLocalStorage() {
+  let current_profil = JSON.parse(localStorage.getItem("current_profil"))
+  if (current_profil) {
+    taskProfil = current_profil.taskCreator
+    return true
+  }
+  
+}
+
+function highlightTaskProfilUser() {
+  if (checkLocalStorage()) {
+    let thisUser = sortedContacts.find(user => user.name === taskProfil)
+    fillContactDetailPanel(thisUser);
+    // The following helpers are exported from UI file and should be wired there:
+    if (window.checkAndRenderMobileView) window.checkAndRenderMobileView();
+    if (window.setupEditDeleteButtons) window.setupEditDeleteButtons(thisUser);
+    if (window.setupEditDeleteButtonsMobile) window.setupEditDeleteButtonsMobile(thisUser);
+    let userId = document.getElementById(`${thisUser.id}`)
+    highlightContactItem(userId);
+  }
+
 }

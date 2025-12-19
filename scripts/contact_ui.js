@@ -125,7 +125,7 @@ function handleContactCreated(res, contact) {
   renderContacts();
   showToast("Contact successfully created");
   contact.id = newId;
-  const newItem = document.querySelector(`.contact-list-item[data-id="${newId}"]`);
+  const newItem = document.querySelector(`.contact-list-item[id="${newId}"]`);
   if (newItem) showContactDetails(contact, newItem);
 }
 
@@ -334,7 +334,7 @@ function bindDetailDelete(c) {
     await renderContacts();
   };
 }
-
+ 
 /**
  * Opens the edit overlay for a contact.
  * @param {object} contact
@@ -367,7 +367,7 @@ function setupEditContactForm(contact) {
     closeOverlay();
     await renderContacts();
     const newDetail = { id: contact.id, ...updated };
-    const updatedItem = document.querySelector(`.contact-list-item[data-id="${contact.id}"]`);
+    const updatedItem = document.querySelector(`.contact-list-item[id="${contact.id}"]`);
     if (updatedItem) {
       await showContactDetails(newDetail, updatedItem);
     }

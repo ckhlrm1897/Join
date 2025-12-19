@@ -1,3 +1,4 @@
+
 let assignedDetailInput = "";
 let profil_icon;
 
@@ -134,10 +135,17 @@ function openTaskDetails() {
     task_detail_entry.classList.remove("d_none");
     void task_detail_entry.offsetWidth;
     task_detail_entry.classList.add("show");
-    profil_icon = document.querySelector(".profil_icon")
+    profil_icon = document.querySelector(".profil_icon");
+    loadContactDetailView()
+}
+
+function loadContactDetailView() {
     profil_icon.addEventListener('click', function () {
+        let taskCreator = data.taskData.creator
+        localStorage.setItem("current_profil", JSON.stringify({taskCreator}));
         window.location.replace("contacts.html")
     })
+
 }
 
 /**

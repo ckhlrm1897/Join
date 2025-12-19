@@ -90,7 +90,7 @@
 }
 
 @media (max-width: 1140px) {
-    main {
+    /* main {
         margin: 0;
         width: 100%;
         left: unset;
@@ -100,7 +100,7 @@
 
     main>div {
         margin-top: 96px;
-    }
+    } */
 
 }
 

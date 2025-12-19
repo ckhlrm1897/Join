@@ -20,7 +20,7 @@ let userDataFromLocalStorage = getUserLogState();
 document.addEventListener('DOMContentLoaded', () => {
   getUserLogState();
   renderNavbar();
-  getUserInitials()
+  getUserInitials();
 })
 
 /**
@@ -282,4 +282,8 @@ async function isCreatorUser(data) {
     if (userValues[i].name === creator) return true;
   }
   return false;
+}
+
+function deleteCurrentProfilOnLocalStorage(){
+  localStorage.removeItem("current_profil")
 }
